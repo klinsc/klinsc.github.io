@@ -1,4 +1,4 @@
-.ex1 .parent {
+.parent {
     display: grid;
     place-items: center;
   }
