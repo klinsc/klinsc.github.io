@@ -1,1 +1,70 @@
-<mxfile host="app.diagrams.net" modified="2020-10-28T02:50:31.782Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="GgQme7uEhgl79XooQEw0" version="13.8.5" type="github"><diagram id="wjy0S2iWsxzNMesYwqDD" name="Page-1">5Zldb5swFIZ/TS43YUiAXrZJukXqVmnZh7o7FxzwajByTD7663cIJgQcUia1kGZSpeLXdm0evz49JxlY42jzSeAk/MJ9wgam4W8G1mRgmgh+4FembHPFHo5yIRDUV4NKYU6fiRINpabUJ8vKQMk5kzSpih6PY+LJioaF4OvqsAVn1VUTHBBNmHuY6eov6sswV13TKfXPhAZhsTKyr/KeCBeD1ZssQ+zz9YFkTQfWWHAu86doMyYsg1dwyefdNvTuNyZILNtMsJznB3cbilvvm+ulk+9i+3v7wc7/ygqzVL2w2qzcFgSID0BUkwsZ8oDHmE1L9UbwNPZJtowBrXLMHecJiAjEP0TKrTpdnEoOUigjpnrzNbOFGt9NSUueCo+ceKHCI1gERJ4YZ+5PAKxLeESk2MI8QRiWdFXdB1YeCvbjSszwoEj/A3WkUZ8BwM3HHZI6f/BNkj363EujHY+bdUglmSd4R2INF6+K8zE/j7vHKt8VEZJsThPWiagJQ+VidY1d1VyXdwIVRg8P7kMx7tUROpdmXLOlca0+jWtq1OewYamhL8Gil+36Cu40jao9r1ra034re15dmj2tlvZ0+7SnpVEfh8R7AmnM+ROFPKLZqEYnRrXsMzMq0q/0w3T+zs3qtjQrajisjrKAoYb+6/3/Qr7Xf2OuBn622NUQWZDw9SAR8ugxXXYSIEbmi4mW22WeVdRh9ZhK4wDU61SGJIYHSANkqodX4CCriJZS8Ccy5owLUGIeZw5eUMZqEmY0iKHpATcC+k1GlUJddq06Iur7O/sfO5PqlVjwWCrzI6doq02iVzgzq5Ycj44E9eGRQzPf7NAuLv1Abes65PQa0vXKbkKXCcPZFgbWdXZTwL5ZjDFmce/ZiD06t2xEz+Aa+d2np+qObgCOanXHvg7pjaCpx+v3fvWdtle/19oD6Z9IFMXHTyLo4mhi0fN9PwO7XmL5gdpmwU3H1dGHORdYf7RH32sBghoqkFVjpOiwBLGdapSwUM81iPlyVlWGWGPm8fPLrIbD3iOtnloNTJtl5dkywUDMDrLnOtgf8aqONp8Emzic1zvxeipmmW9HHJrl93a7voNvP63pXw==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2020-10-28T02:54:09.073Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="ftaem2geOTHezZDY5wfa" version="13.8.5" type="github">
+  <diagram id="wjy0S2iWsxzNMesYwqDD" name="Page-1">
+    <mxGraphModel dx="1038" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="37zY8yhrFcR8cuDTryZy-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-1" target="37zY8yhrFcR8cuDTryZy-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-1" value="Index.html" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-2" target="37zY8yhrFcR8cuDTryZy-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-2" value="Start" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="200" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-3" target="37zY8yhrFcR8cuDTryZy-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-3" value="Check Cookies" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="360" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-12" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-8" target="37zY8yhrFcR8cuDTryZy-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-14" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-8" target="37zY8yhrFcR8cuDTryZy-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-8" value="If cookied" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="520" y="80" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-10" value="Checking Authen Status" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="340" y="50" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-11" target="37zY8yhrFcR8cuDTryZy-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-11" value="Display : Signed In" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="650" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-13" value="Display : Signed Out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="500" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-17" target="37zY8yhrFcR8cuDTryZy-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-17" value="Check Verified" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="650" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-22" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-18" target="37zY8yhrFcR8cuDTryZy-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-24" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="37zY8yhrFcR8cuDTryZy-18" target="37zY8yhrFcR8cuDTryZy-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-18" value="If verified" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="670" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-21" value="Display : Verified Icon" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="650" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="37zY8yhrFcR8cuDTryZy-23" value="&lt;span&gt;Display : Unverified Icon&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="500" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
