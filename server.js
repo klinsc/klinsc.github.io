@@ -4,9 +4,6 @@ const posts = [];
 const Axios = require("axios");
 //const firebase = require("firebase-admin");
 const path = require("path");
-var cors = require('cors')
-app.use(cors())
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
