@@ -540,7 +540,78 @@ class shopeeOrder {
 
 const PDFMerger = require("pdf-merger-js");
 
-async function run() {
+async function initAirwayBill() {
+  var merger = new PDFMerger();
+  const shop = new shopeeShop("115199369");
+  console.log(shop);
+
+  const orders = await shop.getOrdersByStatus("READY_TO_SHIP", 3);
+  console.log(orders);
+
+  const ordersn_list = await orders.orders.map((order) => order.ordersn);
+  console.log(ordersn_list);
+
+  const order_detail = await shop.getOrderDetails(ordersn_list);
+  console.log(order_detail);
+
+  const ungenerated_orders = await order_detail.orders.filter(
+    (order) => order.tracking_no === ""
+  );
+
+  console.log(ungenerated_orders);
+
+  for (let i = 0; i < ungenerated_orders.length; i++) {
+    const address_list = await shop.getAddress();
+    //console.log(address_list.address_list);
+
+    const pickup_address = await address_list.address_list.filter((address) =>
+      address.address_flag.includes("pickup_address")
+    )[0];
+    //console.log(pickup_address);
+
+    const pickup_times = await shop.getTimeSlot(
+      ungenerated_orders[i].ordersn,
+      pickup_address.address_id
+    );
+    console.log(pickup_times);
+
+    const selected_pickup_time = await pickup_times.pickup_time.filter(
+      (pickup_time) =>
+        new Date(pickup_time.date * 1000).getDate() -
+          new Date().getDate() +
+          30 >=
+        1
+    )[0];
+    console.log(selected_pickup_time);
+    console.log(
+      selected_pickup_time,
+      "as",
+      new Date(selected_pickup_time.date * 1000).toLocaleDateString()
+    );
+
+    const initDetails = await shop.initPickupLogistic(
+      ungenerated_orders[i].ordersn,
+      {
+        address_id: pickup_address.address_id,
+        pickup_time_id: selected_pickup_time.pickup_time_id,
+      }
+    );
+    console.log(initDetails);
+  }
+  // const airwayBills = await shop.getAirwayBill(ordersn_list);
+  // console.log(airwayBills.result.airway_bills);
+
+  // (async () => {
+  //   merger.add(airwayBills.result.airway_bills[0].airway_bill + ".pdf"); //merge all pages. parameter is the path to file and filename.
+  //   merger.add(airwayBills.result.airway_bills[1].airway_bill + ".pdf"); // merge only page 2
+
+  //   await merger.save("merged.pdf"); //save under given name
+  // })();
+}
+
+//initAirwayBill();
+
+async function printAirwayBill() {
   var merger = new PDFMerger();
   const shop = new shopeeShop("115199369");
   console.log(shop);
@@ -605,6 +676,6 @@ async function run() {
   // })();
 }
 
-run();
+printAirwayBill();
 
 app.listen(3000);

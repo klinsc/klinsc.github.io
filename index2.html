@@ -1,110 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <!-- Required meta tags for BootStrap -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta charset="UTF-8" />
+    <title>Previous/Next example</title>
+  </head>
+  <body onload="load()">
+    <div>
+      <button id="prev">Previous</button>
+      <button id="next">Next</button>
+      &nbsp; &nbsp;
+      <span
+        >Page: <span id="page_num"></span> / <span id="page_count"></span
+      ></span>
+    </div>
 
-    <!-- Required stylesheet for React -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
-    <!-- Required stylesheet of Us -->
-    <link rel="stylesheet" type="text/css" href="demostyle.css" />
+    <div>
+      <canvas id="the-canvas" style="border: 1px solid black"></canvas>
+    </div>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script>
+      // If absolute URL from the remote server is provided, configure the CORS
+      // header on that server.
+      //
+
+      var urls = [
+        "https://partner.shopeemobile.com/api/v1/logistics/download_shipping_document?token=ovpMYQQvL%2FKv5B8qy%2BbpCnLAO9Wn1wxGti6t63gZKVXV0GLLQD9xl9rM9unSX90JOEj3wone6%2F2PZYv7lTPUc4zykzcF1w0gbpVrAhpYSm3H3xCc3Ds0Es17TlBAEyFnFitKq64%2FirllC5tODdqw%2B7T1tYlTl0nLlLgxkaJzyPEpX7h42kcxVIQSKTjw5pG1CY00Zkv8XxXJpbd3BBHeJg80YgZ44p8OYdnqqg4dDyL5D8iDqOwMDWIeYAPlwNxkI99fpOMp2sK1SFZYUQVuasWMyJH2Lfqse9F1yr5ozE%2F9NFYEpxQiR5ast91NAifTXPNzXmXyBoaRss7aJKJZOw%3D%3D",
+        "https://partner.shopeemobile.com/api/v1/logistics/download_shipping_document?token=K8rsXmspP5YXKu5cPe6Vwr6mVB5QtnLaQQjGFMQeqqzQY7PjD5wv1XOQcjhQyF5HHezTtABJ5iY%2BruFkI9Ovd93FYKvohm28boAEAxFTYTN6dDkCAQhXQLqTkk2P%2BzcJuoEWWeOz%2Fdjlz3ytWO6OcysONqHilAxZZGcXLwdw8PR6n38mKNr2IC4vIt5YgKmPv5Ez%2Bsu0TEJHu2sreTveotqgJ6TJYjtHmD5w%2FdRpw6KOMqb78IZHGslcj53sCgfWgFYfIDwaMSAJ%2BMTVAtiJxQ6E3wevCSAqx0DB5Z20Zus%2FNRVnstnU%2B5y4c8dfSXOFEG9dym9Mt2fR2ntRyY5oOw%3D%3D",
+      ];
+
+      // Disable workers to avoid yet another cross-origin issue (workers need
+      // the URL of the script to be loaded, and dynamically loading a cross-origin
+      // script does not work).
+      //
+      //pdfjsLib.disableWorker = true;
+
+      // In cases when the pdf.worker.js is located at the different folder than the
+      // pdf.js's one, or the pdf.js is executed via eval(), the workerSrc property
+      // shall be specified.
+      //
+      // pdfjsLib.workerSrc = 'pdf.worker.js';
+
+      /**
+       * @typedef {Object} PageInfo
+       * @property {number} documentIndex
+       * @property {number} pageNumber
+       */
+
+      var pdfDocs = [],
+        /**
+         * @property {PageInfo}
+         */
+        current = {},
+        totalPageCount = 0,
+        pageNum = 1,
+        pageRendering = false,
+        pageNumPending = null,
+        scale = 0.8,
+        canvas = document.getElementById("the-canvas"),
+        ctx = canvas.getContext("2d");
+
+      /**
+       * Get page info from document, resize canvas accordingly, and render page.
+       * @param num Page number.
+       */
+      function renderPage(num) {
+        pageRendering = true;
+        current = getPageInfo(num);
+        // Using promise to fetch the page
+        pdfDocs[current.documentIndex]
+          .getPage(current.pageNumber)
+          .then(function (page) {
+            var viewport = page.getViewport({ scale: scale });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Render PDF page into canvas context
+            var renderContext = {
+              canvasContext: ctx,
+              viewport: viewport,
+            };
+            var renderTask = page.render(renderContext);
+
+            // Wait for rendering to finish
+            renderTask.promise.then(function () {
+              pageRendering = false;
+              if (pageNumPending !== null) {
+                // New page rendering is pending
+                renderPage(pageNumPending);
+                pageNumPending = null;
+              }
+            });
+          });
+
+        // Update page counters
+        document.getElementById("page_num").textContent = pageNum;
       }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+      /**
+       * If another page rendering in progress, waits until the rendering is
+       * finished. Otherwise, executes rendering immediately.
+       */
+      function queueRenderPage(num) {
+        if (pageRendering) {
+          pageNumPending = num;
+        } else {
+          renderPage(num);
         }
       }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet" />
-  </head>
-  <body class="text-center">
-    <form class="form-signin">
-      <img
-        class="mb-4"
-        src="https://www.flaticon.com/svg/static/icons/svg/1917/1917710.svg"
-        alt=""
-        width="72"
-        height="72"
-      />
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input
-        type="email"
-        id="inputEmail"
-        class="form-control"
-        placeholder="Email address"
-        required
-        autofocus
-      />
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="inputPassword"
-        class="form-control"
-        placeholder="Password"
-        required
-      />
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
-      </div>
-      <button id="signinBtn" class="btn btn-lg btn-primary btn-block" type="submit">
-        Sign in
-      </button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
-    </form>
 
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <script
-      src="https://unpkg.com/react@16/umd/react.development.js"
-      crossorigin
-    ></script>
-    <script
-      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
-      crossorigin
-    ></script>
+      /**
+       * Displays previous page.
+       */
+      function onPrevPage() {
+        if (pageNum <= 1) {
+          return;
+        }
+        pageNum--;
+        queueRenderPage(pageNum);
+      }
 
-    <!-- Load React component. -->
-    <script src="like_button.js"></script>
+      document.getElementById("prev").addEventListener("click", onPrevPage);
 
-    <!-- Load BootStrap components. -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-    <script src="signin.js"></script>
+      /**
+       * Displays next page.
+       */
+      function onNextPage() {
+        if (
+          pageNum >= totalPageCount &&
+          current.documentIndex + 1 === pdfDocs.length
+        ) {
+          return;
+        }
+
+        pageNum++;
+        queueRenderPage(pageNum);
+      }
+
+      document.getElementById("next").addEventListener("click", onNextPage);
+
+      /**
+       * @returns PageNumber
+       */
+      function getPageInfo(num) {
+        let totalPageCount = 0;
+
+        for (let i = 0; i < pdfDocs.length; i++) {
+          let currentCount = pdfDocs[i].numPages;
+          totalPageCount += currentCount;
+          if (num <= totalPageCount) {
+            return {
+              documentIndex: i,
+              pageNumber: currentCount - (totalPageCount - num),
+            };
+          }
+        }
+
+        return false;
+      }
+
+      function getTotalPageCount() {
+        var totalPageCount = 0;
+        for (var docIdx = 0; docIdx < pdfDocs.length; docIdx++) {
+          totalPageCount += pdfDocs[docIdx].numPages;
+        }
+        return totalPageCount;
+      }
+
+      var loadedCount = 0;
+
+      function load() {
+        // Load PDFs one after another
+        pdfjsLib
+          .getDocument(urls[loadedCount])
+          .promise.then(function (pdfDoc_) {
+            console.log("loaded PDF " + loadedCount);
+            pdfDocs.push(pdfDoc_);
+            loadedCount++;
+            if (loadedCount !== urls.length) {
+              return load();
+            }
+
+            console.log("Finished loading");
+            totalPageCount = getTotalPageCount();
+            document.getElementById("page_count").textContent = totalPageCount;
+
+            // Initial/first page rendering
+            renderPage(pageNum);
+          });
+      }
+    </script>
   </body>
 </html>
